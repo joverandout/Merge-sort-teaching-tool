@@ -182,9 +182,22 @@ void draw() {
       movementStart[stageOfVisualisation-3] = movementStart[stageOfVisualisation-3]-(f);
    }
   }
+  if(stageOfVisualisation == 18){
+    if(movementEndHeight[13] < 326){
+      fill(255);
+      stroke(0);
+      rect(movementStart[1]+(2*(boxwidth+5)), movementEndHeight[13], boxwidth, boxwidth);  
+      fill(0);
+      text(exampleValues[6], movementStart[1]+(2*(boxwidth+5))+(boxwidth/2), movementEndHeight[13]+boxwidth/2);   
+    }
+    else{
+      stageOfVisualisation++;
+    }
+    movementEndHeight[13]++;
+  }  
   }
   System.out.println(movementStart[8] - movementStart[0]);
-  System.out.println(movementStart[10] + "      " + movementStart[11] + "      " + movementEndHeight[12]);
+  System.out.println(movementStart[12] + "      " + movementStart[13] + "      " + movementEndHeight[12]);
 }
 
 void mousePressed() {
@@ -260,6 +273,14 @@ void mousePressed() {
           movementStart[10] = 527.124;  
           movementStart[11] = 442.87598;
           movementEndHeight[10] = 326;
+        }
+        if(stageOfVisualisation == 17){
+          movementStart[12] = 842.6416;
+          movementStart[13] = 927.8684;
+          movementEndHeight[12] = 326;
+        }
+        if(stageOfVisualisation == 18){
+          movementEndHeight[13] = 161;
         }
   }
 }
@@ -410,6 +431,14 @@ void mousePressed() {
         text(exampleValues[i+4], movementStart[12+i]+boxwidth/2, movementEndHeight[12]+boxwidth/2);   
       }
     }
+    if(stageOfVisualisation >18){
+      fill(255);
+      stroke(0);
+      rect(movementStart[1]+(2*(boxwidth+5)), 326, boxwidth, boxwidth);  
+      fill(0);
+      text(exampleValues[6], movementStart[1]+(2*(boxwidth+5))+(boxwidth/2), 326+boxwidth/2);  
+    }
+   
   }
   if(stageOfVisualisation == 11 || stageOfVisualisation == 13 || stageOfVisualisation == 15){
     if(exampleValues[stageOfVisualisation-11] > exampleValues[stageOfVisualisation-10]){
@@ -469,12 +498,3 @@ void drawButton(){
   
 }
 }
-
-//void keyPressed() {
- 
-//  if (key==ENTER||key==RETURN) {
- 
-//    state++;
-//  } else
-//  result = result + key;
-//
