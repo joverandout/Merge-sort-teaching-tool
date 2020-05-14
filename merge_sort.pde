@@ -24,7 +24,7 @@ int[] button1 = {(width/2)-150, 300, 300, 100};
 int[] button2 = {(width/2)-150, 425, 300, 100};
 int[] button3 = {(width/2)-150, 550, 300, 100};
 int[] homeButton = {0, 0, 80, 40};                                                                                                                                                                                     
-int[] exampleValues = {3, 27, 43, 3, 9, 82, 10};
+int[] exampleValues = {38, 27, 43, 3, 9, 82, 10};
 int[] newValues = new int[7];
 
 int[] array1 = new int[2];
@@ -152,7 +152,7 @@ void draw() {
    }
    if(stageOfVisualisation == 12 || stageOfVisualisation == 14 || stageOfVisualisation == 16){
      if(firstLower){
-      if(movementStart[stageOfVisualisation-3] - boxwidth - movementStart[stageOfVisualisation-4] < 10){
+      if(movementStart[stageOfVisualisation-3] - boxwidth - movementStart[stageOfVisualisation-4] < 11){
         stageOfVisualisation ++;       
       }
       else{
@@ -173,7 +173,7 @@ void draw() {
       }      
     }
     else{
-      if(movementStart[stageOfVisualisation-4] - boxwidth - movementStart[stageOfVisualisation-3] > 10){
+      if(movementStart[stageOfVisualisation-4] - boxwidth - movementStart[stageOfVisualisation-3] > 9){
         stageOfVisualisation ++;    
       }
       else{
@@ -215,6 +215,11 @@ void draw() {
       int i = 0;
       if(boxToMove % 2 != 0) i =1;
       float startingValue = movementStart[8+i];
+      float endingValue = 171;
+      if(startingValue < endingValue){
+        rect(startingValue, 222, 50, 50);
+        startingValue++;
+      }    
     }
     System.out.println("BOX: " + boxToMove);
     System.out.println(movementStart[9]);
