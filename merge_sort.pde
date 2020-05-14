@@ -24,7 +24,7 @@ int[] button1 = {(width/2)-150, 300, 300, 100};
 int[] button2 = {(width/2)-150, 425, 300, 100};
 int[] button3 = {(width/2)-150, 550, 300, 100};
 int[] homeButton = {0, 0, 80, 40};                                                                                                                                                                                     
-int[] exampleValues = {38, 27, 43, 3, 9, 82, 10};
+int[] exampleValues = {3, 27, 43, 3, 9, 82, 10};
 int[] newValues = new int[7];
 
 int[] array1 = new int[2];
@@ -152,41 +152,48 @@ void draw() {
    }
    if(stageOfVisualisation == 12 || stageOfVisualisation == 14 || stageOfVisualisation == 16){
      if(firstLower){
-      if(movementStart[stageOfVisualisation-3] - boxwidth - movementStart[stageOfVisualisation-4] < 10) stageOfVisualisation ++;
-      fill(255);
-      stroke(0);
-      rect(movementStart[stageOfVisualisation-4],movementEndHeight[stageOfVisualisation-4], boxwidth, boxwidth);  
-      fill(0);
-      text(exampleValues[stageOfVisualisation-12], movementStart[stageOfVisualisation-4]+(boxwidth/2), movementEndHeight[stageOfVisualisation-4]+boxwidth/2);   
-      fill(255);
-      stroke(0);
-      rect(movementStart[stageOfVisualisation-3],movementEndHeight[stageOfVisualisation-4], boxwidth, boxwidth);
-      fill(0);
-      text(exampleValues[stageOfVisualisation-11], movementStart[stageOfVisualisation-3]+(boxwidth/2), movementEndHeight[stageOfVisualisation-4]+boxwidth/2);   
-      fill(0);
-      movementEndHeight[stageOfVisualisation-4]++;
-      movementStart[stageOfVisualisation-4] = movementStart[stageOfVisualisation-4]+0.26;
-      movementStart[stageOfVisualisation-3] = movementStart[stageOfVisualisation-3]-0.26;
+      if(movementStart[stageOfVisualisation-3] - boxwidth - movementStart[stageOfVisualisation-4] < 10){
+        stageOfVisualisation ++;       
+      }
+      else{
+        fill(255);
+        stroke(0);
+        rect(movementStart[stageOfVisualisation-4],movementEndHeight[stageOfVisualisation-4], boxwidth, boxwidth);  
+        fill(0);
+        text(exampleValues[stageOfVisualisation-12], movementStart[stageOfVisualisation-4]+(boxwidth/2), movementEndHeight[stageOfVisualisation-4]+boxwidth/2);   
+        fill(255);
+        stroke(0);
+        rect(movementStart[stageOfVisualisation-3],movementEndHeight[stageOfVisualisation-4], boxwidth, boxwidth);
+        fill(0);
+        text(exampleValues[stageOfVisualisation-11], movementStart[stageOfVisualisation-3]+(boxwidth/2), movementEndHeight[stageOfVisualisation-4]+boxwidth/2);   
+        fill(0);
+        movementEndHeight[stageOfVisualisation-4]++;
+        movementStart[stageOfVisualisation-4] = movementStart[stageOfVisualisation-4]+0.26;
+        movementStart[stageOfVisualisation-3] = movementStart[stageOfVisualisation-3]-0.26;    
+      }      
     }
     else{
-      if(movementStart[stageOfVisualisation-4] - boxwidth - movementStart[stageOfVisualisation-3] > 10) stageOfVisualisation ++;
-      fill(255);
-      stroke(0);
-      rect(movementStart[stageOfVisualisation-4],movementEndHeight[stageOfVisualisation-4], boxwidth, boxwidth);
-      fill(0);
-      text(exampleValues[stageOfVisualisation-12], movementStart[stageOfVisualisation-4]+(boxwidth/2), movementEndHeight[stageOfVisualisation-4]+boxwidth/2);   
-      fill(255);
-      stroke(0);
-      rect(movementStart[stageOfVisualisation-3],movementEndHeight[stageOfVisualisation-4], boxwidth, boxwidth);
-      fill(0);
-      text(exampleValues[stageOfVisualisation-11], movementStart[stageOfVisualisation-3]+(boxwidth/2), movementEndHeight[stageOfVisualisation-4]+boxwidth/2);   
-      fill(0);
-      movementEndHeight[stageOfVisualisation-4]++;
-      float f = 42.9 / 0.26;
-      f = (42.9+boxwidth+10) / f;
-      System.out.println("F:" + 128.23+boxwidth+10);
-      movementStart[stageOfVisualisation-4] = movementStart[stageOfVisualisation-4]+(f);
-      movementStart[stageOfVisualisation-3] = movementStart[stageOfVisualisation-3]-(f);
+      if(movementStart[stageOfVisualisation-4] - boxwidth - movementStart[stageOfVisualisation-3] > 10){
+        stageOfVisualisation ++;    
+      }
+      else{
+        fill(255);
+        stroke(0);
+        rect(movementStart[stageOfVisualisation-4],movementEndHeight[stageOfVisualisation-4], boxwidth, boxwidth);
+        fill(0);
+        text(exampleValues[stageOfVisualisation-12], movementStart[stageOfVisualisation-4]+(boxwidth/2), movementEndHeight[stageOfVisualisation-4]+boxwidth/2);   
+        fill(255);
+        stroke(0);
+        rect(movementStart[stageOfVisualisation-3],movementEndHeight[stageOfVisualisation-4], boxwidth, boxwidth);
+        fill(0);
+        text(exampleValues[stageOfVisualisation-11], movementStart[stageOfVisualisation-3]+(boxwidth/2), movementEndHeight[stageOfVisualisation-4]+boxwidth/2);   
+        fill(0);
+        movementEndHeight[stageOfVisualisation-4]++;
+        float f = 42.9 / 0.26;
+        f = (42.9+boxwidth+10) / f;
+        movementStart[stageOfVisualisation-4] = movementStart[stageOfVisualisation-4]+(f);
+        movementStart[stageOfVisualisation-3] = movementStart[stageOfVisualisation-3]-(f);    
+      }      
    }
   }
   if(stageOfVisualisation == 18){
@@ -209,7 +216,7 @@ void draw() {
       if(boxToMove % 2 != 0) i =1;
       float startingValue = movementStart[8+i];
     }
-    System.out.println(boxToMove);
+    System.out.println("BOX: " + boxToMove);
     System.out.println(movementStart[9]);
     
 
@@ -285,8 +292,8 @@ void mousePressed() {
           movementEndHeight[12] = 161;
         }
         if(stageOfVisualisation == 13){
-          movementStart[8] = 82.9;  
-          movementStart[9] = 167.1;
+          movementStart[9] = 82.9;  
+          movementStart[8] = 167.1;
           movementEndHeight[8] = 326;
         }
         if(stageOfVisualisation == 15){
@@ -436,13 +443,19 @@ void mousePressed() {
     }
 
     if(stageOfVisualisation >12 ){
-      for(int i = 0; i < 2; i++){
         fill(255);
         stroke(0);
-        rect(movementStart[9-i], movementEndHeight[8], boxwidth, boxwidth);
+        rect(movementStart[9], movementEndHeight[8], boxwidth, boxwidth);
         fill(0);
-        text(newValues[i], movementStart[9-1]+boxwidth/2, movementEndHeight[8]+boxwidth/2);   
-      }
+        text(newValues[0], movementStart[9]+boxwidth/2, movementEndHeight[8]+boxwidth/2);
+        fill(255);
+        stroke(0);
+        rect(movementStart[8], movementEndHeight[8], boxwidth, boxwidth);
+        fill(0);
+        text(newValues[1], movementStart[8]+boxwidth/2, movementEndHeight[8]+boxwidth/2);
+        for(int i = 0; i<10; i++){
+          System.out.println(i + "   " + movementStart[i]);
+        }
     }
     if(stageOfVisualisation >14){
       for(int i = 0; i < 2; i++){
