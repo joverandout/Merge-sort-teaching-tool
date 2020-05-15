@@ -31,9 +31,12 @@ int[] array1 = new int[2];
 int[] array2 = new int[2];
 int[] array3 = new int[2];
 int[] array4 = new int[1];
+int[] array5 = new int[4];
+int[] array6 = new int[3];
 
 int[] firstHalf = new int[4];
-int[] secondHalf = new int [7];
+int[] secondHalf = new int[3];
+int[] finalSort = new int[7];
 
 
 int boxToMove;
@@ -250,9 +253,8 @@ void draw() {
     else{
       stageOfVisualisation++;
     }
-    
-
   }
+ 
   
   }
 }
@@ -283,6 +285,8 @@ void mousePressed() {
         if(stageOfVisualisation == 4 || stageOfVisualisation == 6 || stageOfVisualisation == 8 || stageOfVisualisation == 13 || stageOfVisualisation == 15) stageOfVisualisation--;
         stageOfVisualisation--;
         if(stageOfVisualisation > 19 && stageOfVisualisation < 27) stageOfVisualisation = 19;
+        if(stageOfVisualisation > 27 && stageOfVisualisation < 33) stageOfVisualisation = 27;
+
       }
     }
      if(stageOfVisualisation == 3){
@@ -393,7 +397,7 @@ void mousePressed() {
           int i = 0;
           if(boxToMove < 2){
             if(boxToMove % 2 != 0) i =1;
-            movementStart[17] = ceil(movementStart[12]);
+            movementStart[17] = ceil(movementStart[12]) + (boxwidth+5)*i;
             movementStart[18] = ceil((movementStart[12]-100)+((boxwidth+5)*((stageOfVisualisation/2) - 14)));
             movementEndHeight[17] = 326;
           }
@@ -406,6 +410,17 @@ void mousePressed() {
           System.out.println(boxToMove);
           if(next.hoverOverButton()) secondHalf[(stageOfVisualisation/2) - 14] = newValues[boxToMove+4];
         }
+        
+        if(stageOfVisualisation == 34){
+          for(int i = 0 ; i< 4; i++){
+            array5[i] = newValues[i];
+          }
+          for(int i = 0 ; i< 3; i++){
+            array6[i] = newValues[i+4];
+          }
+          boxToMove = largerArray(array5, array6);
+        }
+        
 
   }
 }
@@ -444,23 +459,6 @@ void mousePressed() {
   if(stageOfVisualisation == 7){
     fill(#FA0303);
     text("These 2 halves are then both split in half", width/2, 160);
-  }
-  if(stageOfVisualisation > 0){ 
-    stroke(#FA0303);
-    strokeWeight(6);
-    float f = (width/2) - 3.5*(boxwidth+5) + (4*(boxwidth+5)) -2;
-    line(f, 10, f, 95); 
-    strokeWeight(1);
-  }
-  if(stageOfVisualisation > 1){
-   strokeWeight(3);
-   float f = (width/2) - 3.5*(boxwidth+5) + (2*(boxwidth+5));
-   float f2 = (width/2) - 3.5*(boxwidth+5) + (0.5*(boxwidth+5));
-   line(f, 100, f2, 200);
-   f = f + 3.5*(boxwidth+5);
-   f2 = f2 + 6*(boxwidth+5);
-   line(f, 100, f2, 200);
-   strokeWeight(1);
   }
   if(stageOfVisualisation > 3){
     movementStart[0] = 40;
