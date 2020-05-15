@@ -30,6 +30,8 @@ int[] newValues = new int[7];
 int[] array1 = new int[2];
 int[] array2 = new int[2];
 
+int[] firstHalf = new int[4];
+
 
 int boxToMove;
 
@@ -208,19 +210,22 @@ void draw() {
     movementEndHeight[13]++;
   }
   
-  if(stageOfVisualisation > 19 && stageOfVisualisation < 24){
+  if(stageOfVisualisation > 19 && stageOfVisualisation < 27 && stageOfVisualisation % 2 == 0){
     
-    if(movementStart[15] != movementStart[16] || movementEndHeight[15] < 450){
+    if(movementStart[15] != movementStart[16] || movementEndHeight[15] < 480){
       fill(255);
       stroke(0);
       rect(movementStart[15], movementEndHeight[15], boxwidth, boxwidth);
       fill(0);
-      text(newValues[stageOfVisualisation - 19], movementStart[15]+(boxwidth/2), movementEndHeight[15]+boxwidth/2);   
-      if(movementEndHeight[15] < 450) movementEndHeight[15] = movementEndHeight[15] + 2;
+      text(newValues[boxToMove], movementStart[15]+(boxwidth/2), movementEndHeight[15]+boxwidth/2);   
+      if(movementEndHeight[15] < 480) movementEndHeight[15] = movementEndHeight[15] + 2;
       if(movementStart[15] != movementStart[16]){
         if(movementStart[15] < movementStart[16]) movementStart[15]++;
         else movementStart[15]--; 
       }
+    }
+    else{
+      stageOfVisualisation++;
     }
     
 
@@ -254,6 +259,7 @@ void mousePressed() {
       {
         if(stageOfVisualisation == 4 || stageOfVisualisation == 6 || stageOfVisualisation == 8 || stageOfVisualisation == 13 || stageOfVisualisation == 15) stageOfVisualisation--;
         stageOfVisualisation--;
+        if(stageOfVisualisation > 19 && stageOfVisualisation < 27) stageOfVisualisation = 19;
       }
     }
      if(stageOfVisualisation == 3){
@@ -314,36 +320,46 @@ void mousePressed() {
         if(stageOfVisualisation == 20){
           array1[0] = newValues[0];
           array1[1] = newValues[1];
-          
+         
           array2[0] = newValues[2];
           array2[1] = newValues[3];
 
           boxToMove = largerArray(array1, array2);
         }
-        if(stageOfVisualisation == 21){
-          boxToMove = largerArray(array1, array2);
-        }
         if(stageOfVisualisation == 22){
           boxToMove = largerArray(array1, array2);
         }
-        if(stageOfVisualisation == 23){
+        if(stageOfVisualisation == 24){
           boxToMove = largerArray(array1, array2);
         }
-        if(stageOfVisualisation > 19){
+        if(stageOfVisualisation == 26){
+          boxToMove = largerArray(array1, array2);
+        }
+        if(stageOfVisualisation > 19 && stageOfVisualisation < 27 && stageOfVisualisation % 2 == 0){
           int i = 0;
           if(boxToMove < 2){
             if(boxToMove % 2 != 0) i =1;
             movementStart[15] = ceil(movementStart[9-i]);
-            movementStart[16] = 171;
+            movementStart[16] = 171+((boxwidth+5)*((stageOfVisualisation/2) - 10));
             movementEndHeight[15] = 326;
           }
           else
           {
             if(boxToMove % 2 != 0) i =1;
             movementStart[15] = ceil(movementStart[11-i]);
-            movementStart[16] = 171;
+            movementStart[16] = 171+((boxwidth+5)*((stageOfVisualisation/2) - 10));
             movementEndHeight[15] = 326;
-          }          
+          }
+          if(next.hoverOverButton()) firstHalf[(stageOfVisualisation/2) - 10] = newValues[boxToMove];
+        }
+        if(stageOfVisualisation == 28){
+          array1[0] = newValues[0];
+          array1[1] = newValues[1];
+         
+          array2[0] = newValues[2];
+          array2[1] = newValues[3];
+
+          boxToMove = largerArray(array1, array2);
         }
   }
 }
@@ -520,7 +536,19 @@ void mousePressed() {
       newValues[stageOfVisualisation-10] = exampleValues[stageOfVisualisation-10];
     }   
   }
-  System.out.println(newValues[0] + "   " +newValues[1] + "   " + newValues[2] + "   " + newValues[3]);
+  if(stageOfVisualisation == 17) newValues[7] = exampleValues[7];
+  
+  if(stageOfVisualisation>20){
+    int temp = (stageOfVisualisation-1)/2;
+    for(int i =0; i < temp-9; i++){
+      fill(255);
+      stroke(0);
+      rect(171+(i*(boxwidth + 5)), 480, boxwidth, boxwidth);
+      fill(0);
+      text(firstHalf[i], 171+(i*(boxwidth + 5))+boxwidth/2, 480+boxwidth/2);   
+   }
+    
+  }
  }
  
  
