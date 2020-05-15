@@ -29,8 +29,11 @@ int[] newValues = new int[7];
 
 int[] array1 = new int[2];
 int[] array2 = new int[2];
+int[] array3 = new int[2];
+int[] array4 = new int[1];
 
 int[] firstHalf = new int[4];
+int[] secondHalf = new int [7];
 
 
 int boxToMove;
@@ -227,6 +230,26 @@ void draw() {
     else{
       stageOfVisualisation++;
     }
+  }
+  
+  if(stageOfVisualisation > 27 && stageOfVisualisation < 33 && stageOfVisualisation % 2 == 0){
+    
+    if(movementStart[17] != movementStart[18] || movementEndHeight[17] < 480){
+      fill(255);
+      stroke(0);
+      rect(movementStart[17], movementEndHeight[17], boxwidth, boxwidth);
+      fill(0);
+      text(newValues[boxToMove+4], movementStart[17]+(boxwidth/2), movementEndHeight[17]+boxwidth/2);   
+      if(movementEndHeight[17] < 480) movementEndHeight[17] = movementEndHeight[17] + 2;
+      if(movementStart[17] != movementStart[18]){
+        if(movementStart[17] < movementStart[18]) movementStart[17]++;
+        else movementStart[17]--; 
+      }
+      System.out.println(movementStart[17] +"   "+ movementStart[18]);
+    }
+    else{
+      stageOfVisualisation++;
+    }
     
 
   }
@@ -353,14 +376,37 @@ void mousePressed() {
           if(next.hoverOverButton()) firstHalf[(stageOfVisualisation/2) - 10] = newValues[boxToMove];
         }
         if(stageOfVisualisation == 28){
-          array1[0] = newValues[0];
-          array1[1] = newValues[1];
+          array3[0] = newValues[4];
+          array3[1] = newValues[5];
          
-          array2[0] = newValues[2];
-          array2[1] = newValues[3];
+          array4[0] = newValues[6];
 
-          boxToMove = largerArray(array1, array2);
+          boxToMove = largerArray(array3, array4);
         }
+        if(stageOfVisualisation == 30){
+          boxToMove = largerArray(array3, array4);
+        }
+        if(stageOfVisualisation == 32){
+          boxToMove = largerArray(array3, array4);
+        }
+        if(stageOfVisualisation > 27 && stageOfVisualisation < 33 && stageOfVisualisation % 2 == 0){
+          int i = 0;
+          if(boxToMove < 2){
+            if(boxToMove % 2 != 0) i =1;
+            movementStart[17] = ceil(movementStart[12]);
+            movementStart[18] = ceil((movementStart[12]-100)+((boxwidth+5)*((stageOfVisualisation/2) - 14)));
+            movementEndHeight[17] = 326;
+          }
+          else
+          {
+            movementStart[17] = ceil(movementStart[1]+(2*(boxwidth+5)));
+            movementStart[18] = ceil((movementStart[12]-100)+((boxwidth+5)*((stageOfVisualisation/2) - 14)));
+            movementEndHeight[17] = 326;
+          }
+          System.out.println(boxToMove);
+          if(next.hoverOverButton()) secondHalf[(stageOfVisualisation/2) - 14] = newValues[boxToMove+4];
+        }
+
   }
 }
  
@@ -536,10 +582,13 @@ void mousePressed() {
       newValues[stageOfVisualisation-10] = exampleValues[stageOfVisualisation-10];
     }   
   }
-  if(stageOfVisualisation == 17) newValues[7] = exampleValues[7];
+  if(stageOfVisualisation == 17) newValues[6] = exampleValues[6];
   
   if(stageOfVisualisation>20){
-    int temp = (stageOfVisualisation-1)/2;
+    int temp;
+    if(stageOfVisualisation % 2 ==0) temp = (stageOfVisualisation-1)/2;
+    else temp = stageOfVisualisation/2;
+    if(stageOfVisualisation > 27) temp = 13;
     for(int i =0; i < temp-9; i++){
       fill(255);
       stroke(0);
@@ -547,16 +596,29 @@ void mousePressed() {
       fill(0);
       text(firstHalf[i], 171+(i*(boxwidth + 5))+boxwidth/2, 480+boxwidth/2);   
    }
+  }
+   
+   if(stageOfVisualisation>28){
+    int temp;
+    if(stageOfVisualisation % 2 ==0) temp = (stageOfVisualisation-1)/2;
+    else temp = stageOfVisualisation/2;  
+    if(stageOfVisualisation > 33) temp = 16;
+    for(int i =0; i < temp-13; i++){
+      fill(255);
+      stroke(0);
+      rect((movementStart[12]-100)+((boxwidth+5)*(i)), 480, boxwidth, boxwidth);
+      fill(0);
+      text(secondHalf[i], (movementStart[12]-100)+((boxwidth+5)*(i))+boxwidth/2, 480+boxwidth/2);   
+   }
     
   }
- }
- 
+} 
  
  public int largerArray(int[] a, int[]b){
-   for(int i=0; i< 2; i++){
+   for(int i=0; i< a.length; i++){
      if(a[i]!=9999)
      {
-       for(int j = 0; j < 2; j++){
+       for(int j = 0; j < b.length; j++){
          if(b[j] != 9999){
            if(a[i] <= b[j]){
              a[i] = 9999;
@@ -567,10 +629,15 @@ void mousePressed() {
              return j+2;
            }
          }
+         else{
+           
+         }
        }
+       a[i]=9999;
+       return i;
      }    
    }
-   for(int i=0; i< 2; i++){
+   for(int i=0; i< b.length; i++){
      if(b[i] != 9999){
        b[i] = 9999;
        return i+2;
