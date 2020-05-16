@@ -4,6 +4,8 @@ int state = 0; /*the state indicates the stage the program is at, 0 is the menu,
 int boxwidth = 75;
 int stageOfVisualisation = 0;
 
+boolean inputNumbers = false;
+
 Button exampleNumbers;
 Button ownNumbers;
 Button explainMergeSort;
@@ -12,12 +14,18 @@ Button next;
 Button prev;
 
 int percentage=0;
+int counter = 0;
 
 boolean firstLower = false;
 
 float[] movementStart;
 float[] movementEndHeight;
 float movementEnd;
+
+String typing = "";
+
+// Variable to store saved text when return is hit
+String saved = "";
 
 
 int[] button1 = {(width/2)-150, 300, 300, 100};
@@ -78,8 +86,29 @@ void draw() {
   }
   if(state==3){title();}
   if(state==1 || state == 2){
-   merge();
-   if(stageOfVisualisation == 3){
+    if(state == 2 && inputNumbers == true){
+      if(counter < 7){
+        int indent = width/2;
+    
+        // Set the font and fill for text
+        fill(0);
+        
+        // Display everything
+        text("Click in this window and type. \nHit enter to save. ", indent, 40);
+        text("Input: " + typing,indent,190);
+        text("Saved number: " + saved,indent,230);
+        if(saved.contains("[a-zA-Z]+")) text("Sorry that wasn't a number please try again",indent, 300);
+        else if(saved.length()>0){
+        counter++;
+        usedValues[counter-1] = Integer.parseInt(saved);
+        }
+        saved = "";
+        if(counter > 6) inputNumbers = false;
+      }
+    }
+    if(state==2 && inputNumbers == false || state ==1){
+    merge();
+    if(stageOfVisualisation == 3){
       if(movementStart[0] < 40 && movementEndHeight[0] > 150) stageOfVisualisation ++;
       textAlign(CENTER, CENTER);
       for(int i=0; i < 4; i++){
@@ -274,9 +303,21 @@ void draw() {
     else{
       stageOfVisualisation++;
     }
-  } 
- 
-  
+   } 
+  }
+ }
+}
+
+void keyPressed() {
+  // If the return key is pressed, save the String and clear it
+  if (key == '\n' ) {
+    saved = typing;
+    // A String can be cleared by setting it equal to ""
+    typing = ""; 
+  } else {
+    // Otherwise, concatenate the String
+    // Each character typed by the user is added to the end of the String variable.
+    typing = typing + key; 
   }
 }
 
@@ -287,6 +328,8 @@ void mousePressed() {
     }
     if(ownNumbers.hoverOverButton()) {
      state =2;
+     inputNumbers = true;
+     counter =0;    
     }
     if(explainMergeSort.hoverOverButton()) {
      state = 3;
