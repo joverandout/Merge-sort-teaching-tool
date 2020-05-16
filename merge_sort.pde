@@ -5,6 +5,7 @@ int boxwidth = 75;
 int stageOfVisualisation = 0;
 
 boolean inputNumbers = false;
+boolean isNumber = true;
 
 Button exampleNumbers;
 Button ownNumbers;
@@ -97,11 +98,15 @@ void draw() {
         text("Click in this window and type. \nHit enter to save. ", indent, 40);
         text("Input: " + typing,indent,190);
         text("Saved number: " + saved,indent,230);
-        if(saved.contains("[a-zA-Z]+")) text("Sorry that wasn't a number please try again",indent, 300);
-        else if(saved.length()>0){
-        counter++;
-        usedValues[counter-1] = Integer.parseInt(saved);
+        if(saved.matches(".*[a-zA-Z]+.*")){
+          isNumber=false;
         }
+        if(saved.length()>0 && saved.matches(".*[a-zA-Z]+.*")==false){
+          isNumber=true;
+          counter++;
+          usedValues[counter-1] = Integer.parseInt(saved);
+        }
+        if(!isNumber) text("Sorry that wasn't a number please try again",width/2, 400);
         saved = "";
         if(counter > 6) inputNumbers = false;
       }
@@ -325,6 +330,9 @@ void mousePressed() {
   if(state == 0){
     if(exampleNumbers.hoverOverButton()) {
      state = 1;
+     for(int i = 0; i < 7; i++){
+       usedValues [i] = exampleValues[i];
+     }
     }
     if(ownNumbers.hoverOverButton()) {
      state =2;
