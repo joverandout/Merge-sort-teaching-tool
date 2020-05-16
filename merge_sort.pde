@@ -24,7 +24,7 @@ int[] button1 = {(width/2)-150, 300, 300, 100};
 int[] button2 = {(width/2)-150, 425, 300, 100};
 int[] button3 = {(width/2)-150, 550, 300, 100};
 int[] homeButton = {0, 0, 80, 40};                                                                                                                                                                                     
-int[] usedValues = {38, 27, 43, 3, 9, 82, 10};
+int[] usedValues = {2, 1, 23, 13, 9, 8, 10};
 int[] exampleValues = {38, 27, 43, 3, 9, 82, 10};
 int[] newValues = new int[7];
 int[] newValuesDup = new int[7];
@@ -257,15 +257,15 @@ void draw() {
   }
   
   
-  if(stageOfVisualisation > 33 && stageOfVisualisation < 45 && stageOfVisualisation % 2 == 0){
-    if(movementStart[19] != movementStart[20] || movementEndHeight[20] < height - boxwidth - 15){
+  if(stageOfVisualisation > 33 && stageOfVisualisation < 47 && stageOfVisualisation % 2 == 0){
+    if(movementStart[19] != movementStart[20] || movementEndHeight[19] < height - 15){
       fill(255);
       stroke(0);
       rect(movementStart[19], movementEndHeight[19], boxwidth, boxwidth);
       fill(0);
       System.out.println("PRINT "+ boxToMove + "   " + newValuesDup[boxToMove]);
       text(newValuesDup[boxToMove], movementStart[19]+(boxwidth/2), movementEndHeight[19]+boxwidth/2);   
-      if(movementEndHeight[19] < 480) movementEndHeight[19] = movementEndHeight[19] + 2;
+      if(movementEndHeight[19] < height - 15 - boxwidth) movementEndHeight[19] = movementEndHeight[19] + 2;
       if(movementStart[19] != movementStart[20]){
         if(movementStart[19] < movementStart[20]) movementStart[19]++;
         else movementStart[19]--; 
@@ -348,13 +348,13 @@ void mousePressed() {
           movementEndHeight[12] = 161;
         }
         if(stageOfVisualisation == 13){
-          movementStart[9] = 82.9;  
-          movementStart[8] = 167.1;
+          movementStart[8] = 82.9;  
+          movementStart[9] = 167.1;
           movementEndHeight[8] = 326;
         }
         if(stageOfVisualisation == 15){
-          movementStart[10] = 527.124;  
-          movementStart[11] = 442.87598;
+          movementStart[11] = 527.124;  
+          movementStart[10] = 442.87598;
           movementEndHeight[10] = 326;
         }
         if(stageOfVisualisation == 17){
@@ -387,14 +387,14 @@ void mousePressed() {
           int i = 0;
           if(boxToMove < 2){
             if(boxToMove % 2 != 0) i =1;
-            movementStart[15] = ceil(movementStart[9-i]);
+            movementStart[15] = ceil(movementStart[8+i]);
             movementStart[16] = 171+((boxwidth+5)*((stageOfVisualisation/2) - 10));
             movementEndHeight[15] = 326;
           }
           else
           {
             if(boxToMove % 2 != 0) i =1;
-            movementStart[15] = ceil(movementStart[11-i]);
+            movementStart[15] = ceil(movementStart[10+i]);
             movementStart[16] = 171+((boxwidth+5)*((stageOfVisualisation/2) - 10));
             movementEndHeight[15] = 326;
           }
@@ -420,7 +420,7 @@ void mousePressed() {
             if(boxToMove % 2 != 0) i =1;
             movementStart[17] = ceil(movementStart[12]) + (boxwidth+5)*i;
             movementStart[18] = ceil((movementStart[12]-100)+((boxwidth+5)*((stageOfVisualisation/2) - 14)));
-            movementEndHeight[17] = 480;
+            movementEndHeight[17] = 326;
           }
           else
           {
@@ -461,16 +461,16 @@ void mousePressed() {
           int i = 0;
           if(boxToMove < 4){
             if(boxToMove % 2 != 0) i =1;
-            movementStart[19] = ceil(171+((boxwidth+5)*((stageOfVisualisation/2) - 17)));
+            movementStart[19] = ceil(171+((boxwidth+5)*(boxToMove)));
             movementStart[20] = 60+((stageOfVisualisation/2)-17);
-            movementEndHeight[19] = 450;
+            movementEndHeight[19] = 480;
           }
           else
           {
             if(boxToMove % 2 != 0) i =1;
-            movementStart[19] = ceil((movementStart[12]-100)+((boxwidth+5)*(i-4)));
+            movementStart[19] = ceil(movementStart[12]-100+((boxwidth+5)*(boxToMove-4)));
             movementStart[20] = 60+((stageOfVisualisation/2)-17);
-            movementEndHeight[19] = 450;
+            movementEndHeight[19] = 480;
           }
           if(next.hoverOverButton()) finalSort[(stageOfVisualisation/2) - 17] = newValuesDup[boxToMove];
           System.out.println(newValuesDup[boxToMove]);
@@ -581,49 +581,8 @@ void mousePressed() {
       fill(0);
       text(usedValues[4+i], movementStart[4]+boxwidth/2+(i*(boxwidth+5)), 161+boxwidth/2); 
     }
-
-    if(stageOfVisualisation >12 ){
-        fill(255);
-        stroke(0);
-        rect(movementStart[9], movementEndHeight[8], boxwidth, boxwidth);
-        fill(0);
-        text(newValues[0], movementStart[9]+boxwidth/2, movementEndHeight[8]+boxwidth/2);
-        fill(255);
-        stroke(0);
-        rect(movementStart[8], movementEndHeight[8], boxwidth, boxwidth);
-        fill(0);
-        text(newValues[1], movementStart[8]+boxwidth/2, movementEndHeight[8]+boxwidth/2);
-        for(int i = 0; i<10; i++){
-        }
-    }
-    if(stageOfVisualisation >14){
-      for(int i = 0; i < 2; i++){
-        fill(255);
-        stroke(0);
-        rect(movementStart[10+i], movementEndHeight[10], boxwidth, boxwidth);
-        fill(0);
-        text(usedValues[i+2], movementStart[10+i]+boxwidth/2, movementEndHeight[10]+boxwidth/2);   
-      }
-    }
-    if(stageOfVisualisation >16){
-      for(int i = 0; i < 2; i++){
-        fill(255);
-        stroke(0);
-        rect(movementStart[12+i], movementEndHeight[12], boxwidth, boxwidth);
-        fill(0);
-        text(usedValues[i+4], movementStart[12+i]+boxwidth/2, movementEndHeight[12]+boxwidth/2);   
-      }
-    }
-    if(stageOfVisualisation >18){
-      fill(255);
-      stroke(0);
-      rect(movementStart[1]+(2*(boxwidth+5)), 326, boxwidth, boxwidth);  
-      fill(0);
-      text(usedValues[6], movementStart[1]+(2*(boxwidth+5))+(boxwidth/2), 326+boxwidth/2);  
-    }
-   
-  }
-  if(stageOfVisualisation == 11 || stageOfVisualisation == 13 || stageOfVisualisation == 15){
+    
+      if(stageOfVisualisation == 11 || stageOfVisualisation == 13 || stageOfVisualisation == 15){
     if(usedValues[stageOfVisualisation-11] > usedValues[stageOfVisualisation-10]){
       firstLower = false;
       newValues[stageOfVisualisation-11] = usedValues[stageOfVisualisation-10];
@@ -633,9 +592,69 @@ void mousePressed() {
       firstLower = true;
       newValues[stageOfVisualisation-11] = usedValues[stageOfVisualisation-11];
       newValues[stageOfVisualisation-10] = usedValues[stageOfVisualisation-10];
-    }   
+    } 
+    if(newValues[stageOfVisualisation-10]<newValues[stageOfVisualisation-11]){
+      int temp = newValues[stageOfVisualisation-10];
+      newValues[stageOfVisualisation-10] = newValues[stageOfVisualisation-11];
+      newValues[stageOfVisualisation-11] = temp;
+    }
+    System.out.println(newValues[stageOfVisualisation-11] + "    " + newValues[stageOfVisualisation-10]);
   }
   if(stageOfVisualisation == 17) newValues[6] = usedValues[6];
+
+    if(stageOfVisualisation >12 ){
+      fill(255);
+      stroke(0);
+      rect(82.9, movementEndHeight[8], boxwidth, boxwidth);
+      fill(0);
+      text(newValues[0], 82.9+boxwidth/2, movementEndHeight[8]+boxwidth/2);
+      fill(255);
+      stroke(0);
+      rect(82.9+boxwidth+10, movementEndHeight[8], boxwidth, boxwidth);
+      fill(0);
+      text(newValues[1], 82.9+boxwidth+10+boxwidth/2, movementEndHeight[8]+boxwidth/2);
+    }
+    if(stageOfVisualisation >14){
+      System.out.println(newValues[2] + " : " + newValues[3]);
+      if(newValues[2] > newValues[3]){
+        int temp = newValues[2];
+        newValues[2] = newValues[3];
+        newValues[3] = temp;
+      }
+      fill(255);
+      stroke(0);
+      rect(442.87598, movementEndHeight[10], boxwidth, boxwidth);
+      fill(0);
+      text(newValues[2], 442.87598+boxwidth/2, movementEndHeight[10]+boxwidth/2);
+      fill(255);
+      stroke(0);
+      rect(442.87598+boxwidth+10, movementEndHeight[10], boxwidth, boxwidth);
+      fill(0);
+      text(newValues[3], 442.87598+boxwidth+10+boxwidth/2, movementEndHeight[10]+boxwidth/2);
+    }
+    if(stageOfVisualisation >16){
+      fill(255);
+      stroke(0);
+      rect(842.6416, movementEndHeight[10], boxwidth, boxwidth);
+      fill(0);
+      text(newValues[4], 842.6416+boxwidth/2, movementEndHeight[10]+boxwidth/2);
+      fill(255);
+      stroke(0);
+      rect(842.6416+boxwidth+10, movementEndHeight[10], boxwidth, boxwidth);
+      fill(0);
+      text(newValues[5], 842.6416+boxwidth+10+boxwidth/2, movementEndHeight[10]+boxwidth/2);
+    }
+    
+    if(stageOfVisualisation >18){
+      fill(255);
+      stroke(0);
+      rect(movementStart[1]+(2*(boxwidth+5)), 326, boxwidth, boxwidth);  
+      fill(0);
+      text(usedValues[6], movementStart[1]+(2*(boxwidth+5))+(boxwidth/2), 326+boxwidth/2);  
+    }
+   
+  }
+
   
   if(stageOfVisualisation>20){
     int temp;
