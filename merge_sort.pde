@@ -258,12 +258,12 @@ void draw() {
   
   
   if(stageOfVisualisation > 33 && stageOfVisualisation < 47 && stageOfVisualisation % 2 == 0){
-    if(movementStart[19] != movementStart[20] || movementEndHeight[19] < height - 15){
+    if(movementStart[19] != movementStart[20] || movementEndHeight[19] < height - 15 - boxwidth){
       fill(255);
       stroke(0);
       rect(movementStart[19], movementEndHeight[19], boxwidth, boxwidth);
       fill(0);
-      System.out.println("PRINT "+ boxToMove + "   " + newValuesDup[boxToMove]);
+      System.out.println("PRINT "+ movementStart[19]);
       text(newValuesDup[boxToMove], movementStart[19]+(boxwidth/2), movementEndHeight[19]+boxwidth/2);   
       if(movementEndHeight[19] < height - 15 - boxwidth) movementEndHeight[19] = movementEndHeight[19] + 2;
       if(movementStart[19] != movementStart[20]){
@@ -426,7 +426,7 @@ void mousePressed() {
           {
             movementStart[17] = ceil(movementStart[1]+(2*(boxwidth+5)));
             movementStart[18] = ceil((movementStart[12]-100)+((boxwidth+5)*((stageOfVisualisation/2) - 14)));
-            movementEndHeight[17] = 480;
+            movementEndHeight[17] = 326;
           }
           if(next.hoverOverButton()) secondHalf[(stageOfVisualisation/2) - 14] = newValues[boxToMove+4];
         }
@@ -457,19 +457,20 @@ void mousePressed() {
         if(stageOfVisualisation == 46){
           boxToMove = largerArray(array5, array6);
         }
-        if(stageOfVisualisation > 33 && stageOfVisualisation < 40 && stageOfVisualisation % 2 == 0){
+        if(stageOfVisualisation > 33 && stageOfVisualisation < 47 && stageOfVisualisation % 2 == 0){
           int i = 0;
           if(boxToMove < 4){
             if(boxToMove % 2 != 0) i =1;
             movementStart[19] = ceil(171+((boxwidth+5)*(boxToMove)));
-            movementStart[20] = 60+((stageOfVisualisation/2)-17);
+            movementStart[20] =(width/2) - 3.5*(boxwidth+5)+((stageOfVisualisation/2)-17)*(boxwidth+5);
             movementEndHeight[19] = 480;
           }
           else
           {
+            float temp = movementStart[12]-100;
             if(boxToMove % 2 != 0) i =1;
-            movementStart[19] = ceil(movementStart[12]-100+((boxwidth+5)*(boxToMove-4)));
-            movementStart[20] = 60+((stageOfVisualisation/2)-17);
+            movementStart[19] = ceil(temp+((boxwidth+5)*(boxToMove-4)));
+            movementStart[20] = (width/2) - 3.5*(boxwidth+5)+((stageOfVisualisation/2)-17)*(boxwidth+5);
             movementEndHeight[19] = 480;
           }
           if(next.hoverOverButton()) finalSort[(stageOfVisualisation/2) - 17] = newValuesDup[boxToMove];
@@ -682,7 +683,19 @@ void mousePressed() {
       fill(0);
       text(secondHalf[i], (movementStart[12]-100)+((boxwidth+5)*(i))+boxwidth/2, 480+boxwidth/2);   
    }
-    
+   
+   if(stageOfVisualisation>34){
+    int tempVal;
+    if(stageOfVisualisation % 2 ==0) tempVal = (stageOfVisualisation-1)/2;
+    else tempVal = stageOfVisualisation/2;  
+    for(int i =0; i < tempVal-16; i++){
+      fill(255);
+      stroke(0);
+      rect(((width/2) - 3.5*(boxwidth+5))+((boxwidth+5)*(i)), height-15-boxwidth, boxwidth, boxwidth);
+      fill(0);
+      text(finalSort[i], ((width/2) - 3.5*(boxwidth+5))+((boxwidth+5)*(i))+boxwidth/2, height-15-boxwidth/2);   
+   }
+   }
   }
 } 
  
