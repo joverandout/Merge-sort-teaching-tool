@@ -568,63 +568,97 @@ void mousePressed() {
   }
 }
  
- void title(){
-   fill(0);
-   textSize(80);
-   textAlign(CENTER, TOP);
-   text("Merge Sort", width/2, 80);
-   textSize(30);
-   text("Joe Moore - u1917702 - 2020", width/2, 200);
- }
- 
- void merge(){
+/* the title function is called when the state is 0 and so displays the title
+ * alongside my name and the 3 menu buttons
+ */
+void title(){
+  fill(0);
+  textSize(80);
+  textAlign(CENTER, TOP);
+  text("Merge Sort", width/2, 80); //title is displayed
+  textSize(30);
+  text("Joe Moore - u1917702 - 2020", width/2, 200); //alongside my name
+}
+
+/* The merge function is what is called every draw function, in it each stationary object is drawn since the fact
+ * they are not moving means I am able to place them within a subfunction
+ */
+void merge(){
+  //next and previous buttons are drawn
   int[] nextButton = {width-100, height-40, 100, 40};
   int[] prevButton = {width-nextButton[2]*2-5, height-40, 100, 40};
   next = new Button(nextButton, "Next", 20);
   prev = new Button(prevButton, "Previous", 20);
-  
-  System.out.println(stageOfVisualisation);
-  
+       
   next.drawButton();
   prev.drawButton();
   
-  for(int i=0; i < 7; i++){
+  System.out.println(stageOfVisualisation);
+  
+  for(int i=0; i < 7; i++){ //this draws the 7 original values at the top and so is called every time
     fill(255);
     stroke(0);
     rect((width/2) - 3.5*(boxwidth+5) + (i*(boxwidth+5)), 15, boxwidth, boxwidth);
     fill(0);
     text(usedValues[i], (width/2) - 3.5*(boxwidth+5) + (i*(boxwidth+5)) + (boxwidth/2), 15+boxwidth/2);
   }
+  //below are a set of if clauses that all display text given a specific stage of the visualisation 
   if(stageOfVisualisation == 1){
-    fill(#FA0303);
+    fill(0);
     text("To start the array is split into 2 halves", width/2, 110);
   }
   if(stageOfVisualisation == 7){
-    fill(#FA0303);
-    text("These 2 halves are then both split in half", width/2, 160);
+    fill(0);
+    text("These 2 halves are then both split in half", width/2, 110);
   }
-  if(stageOfVisualisation > 3){
+  if(stageOfVisualisation == 9){
+    fill(0);
+    text("And again until each sublit is of size one", width/2, 110);
+  }
+  if(stageOfVisualisation == 11 || stageOfVisualisation == 12){
+    fill(0);
+    text("The first 2 sublists are then compared and combined (swapping them if the first one is larger)", width/2, 110);
+  }
+  if(stageOfVisualisation >12 && stageOfVisualisation < 19){
+    fill(0);
+    text("This process is repeated for each of the individual arrays, with leftover elements remaining as one element", width/2, 110);
+  }  
+  if(stageOfVisualisation >19 && stageOfVisualisation < 27){
+    fill(0);
+    text("The same process is applied then to the first 2 sublists of size 2, comparing their first values and so on", width/2, 290);
+  }
+  if(stageOfVisualisation >26 && stageOfVisualisation < 33){
+    fill(0);
+    text("And again for the second half of the pairs", width/2, 290);
+  }
+  if(stageOfVisualisation >33 && stageOfVisualisation < 48){
+    fill(0);
+    text("We are finally left with 2 sublists each of half the array. Again the algorithms compares the first values of the", width/2, 420);
+    text("the arrays all the way through adding the smallest element to the final array. Leaving us with the final sorted array", width/2, 450);
+  }
+  if(stageOfVisualisation > 3){ //this is the first split and the first half of the array needs to be drawn
+    //below are the displays of the first 2 halves after the first split
     movementStart[0] = 40;
     movementEndHeight[0] = 161;
     int j = 4;
-    if(stageOfVisualisation > 6) j = 2;
-    if(stageOfVisualisation > 8) j = 1;
+    if(stageOfVisualisation > 6) j = 2; //only display 2 of them if it is after the second split since they have moved again
+    if(stageOfVisualisation > 8) j = 1; //and only 1 if it is fater the third split as then they are in dividual arrays
     for(int i=0; i < j; i++){
         fill(255);
-        if(stageOfVisualisation == 11) if(i == 0) fill(#FF3131);
+        if(stageOfVisualisation == 11) if(i == 0) fill(#FF3131); //comparing the first ones so highlisght them red    
         stroke(0);
         rect(movementStart[0]+(i*(boxwidth+5)), movementEndHeight[0], boxwidth, boxwidth);
         fill(0);
         text(usedValues[i], movementStart[0]+(i*(boxwidth+5))+boxwidth/2, movementEndHeight[0]+boxwidth/2);        
       } 
   }
-  if(stageOfVisualisation > 5){
+  if(stageOfVisualisation > 5){ //this is after the second half of the first array is drawn
     movementStart[1] = width-(boxwidth+5)*3-40;
     movementEndHeight[1] = 161;
     int j = 0;
-    if(stageOfVisualisation > 6) j = 2;
-    if(stageOfVisualisation > 8) j = 2;
-    for(int i=j; i < 3; i++){
+    if(stageOfVisualisation > 6) j = 2; //once it is bigger than 6 only 1 of them should be drawn
+    //since all bu the last one has moved on
+    for(int i=j; i < 3; i++){ //so only draw the last one
         fill(255);
         stroke(0);
         if(stageOfVisualisation == 17) if(i == 2) fill(#FF3131);
@@ -633,25 +667,26 @@ void mousePressed() {
         text(usedValues[i+4], movementStart[1]+(i*(boxwidth+5))+boxwidth/2, movementEndHeight[1]+boxwidth/2);        
     } 
   }
-  if(stageOfVisualisation > 7){
+  if(stageOfVisualisation > 7){ //after this point the 2 haolves split again into quarters
      movementStart[3] = (40+(2*(boxwidth+5)) + 200);
      movementStart[4] = (width-(boxwidth+5)*3)-240;
      int j = 2;
-     if(stageOfVisualisation > 8) j = 1;
+     if(stageOfVisualisation > 8) j = 1; //only showing one of them after this point sincee that is when the array is split into 7 sublists
      for(int i=0; i < j; i++){
       fill(255);
       stroke(0);
-      if(stageOfVisualisation == 13) if(i == 0) fill(#FF3131);
-      rect(movementStart[3]+(i*(boxwidth+5)), 161, boxwidth, boxwidth);
+      if(stageOfVisualisation == 13) if(i == 0) fill(#FF3131); //if its being compared to highlight it red
+      rect(movementStart[3]+(i*(boxwidth+5)), 161, boxwidth, boxwidth); //draw the box
       fill(0);
       text(usedValues[i+2], movementStart[3]+(i*(boxwidth+5))+boxwidth/2, 161+boxwidth/2);        
     }
-    if(stageOfVisualisation > 9){
-      for(int i = 0; i < 3; i++){
+    if(stageOfVisualisation > 9){ //here the elements are in 7 sseperate sublists
+      for(int i = 0; i < 3; i++){ //drawing the last three that hadn't already been drawn
         fill(255);
-        if(stageOfVisualisation == 11) if(i == 0) fill(#FF3131);
-        if(stageOfVisualisation == 13) if(i == 1) fill(#FF3131);
-        if(stageOfVisualisation == 15) if(i == 2) fill(#FF3131);
+        //colour the boxes being compared as red
+        if(stageOfVisualisation == 11) if(i == 0) fill(#FF3131); //when these are being compared
+        if(stageOfVisualisation == 13) if(i == 1) fill(#FF3131); //they are highlighted
+        if(stageOfVisualisation == 15) if(i == 2) fill(#FF3131); //in red
         stroke(0);
         rect(movementStart[i+5], 161, boxwidth, boxwidth);
         fill(0);
@@ -660,7 +695,7 @@ void mousePressed() {
     }
     fill(255);
     int h = 2;
-    if(stageOfVisualisation > 8) h = 1;
+    if(stageOfVisualisation > 8) h = 1; //drawing the final ones of the 7
     for(int i = 0; i < h; i++){
       fill(255);
       if(stageOfVisualisation == 15) fill(#FF3131);
@@ -670,26 +705,27 @@ void mousePressed() {
       text(usedValues[4+i], movementStart[4]+boxwidth/2+(i*(boxwidth+5)), 161+boxwidth/2); 
     }
     
-      if(stageOfVisualisation == 11 || stageOfVisualisation == 13 || stageOfVisualisation == 15){
-    if(usedValues[stageOfVisualisation-11] > usedValues[stageOfVisualisation-10]){
-      firstLower = false;
-      newValues[stageOfVisualisation-11] = usedValues[stageOfVisualisation-10];
-      newValues[stageOfVisualisation-10] = usedValues[stageOfVisualisation-11];
+    if(stageOfVisualisation == 11 || stageOfVisualisation == 13 || stageOfVisualisation == 15){ //this is the point where the pairs are being merged back together
+      if(usedValues[stageOfVisualisation-11] > usedValues[stageOfVisualisation-10]){ //if the first value is bigger
+        firstLower = false; //set first lower to false
+        //and swap them in the newValues array
+        newValues[stageOfVisualisation-11] = usedValues[stageOfVisualisation-10];
+        newValues[stageOfVisualisation-10] = usedValues[stageOfVisualisation-11];
+      }
+      else{ //otherwise the first is equal or lower
+        firstLower = true; //so set firstlower to true
+        //and dont swap the values in newValues add them in the same order
+        newValues[stageOfVisualisation-11] = usedValues[stageOfVisualisation-11];
+        newValues[stageOfVisualisation-10] = usedValues[stageOfVisualisation-10];
+      } 
+      if(newValues[stageOfVisualisation-10]<newValues[stageOfVisualisation-11]){ //if the new values is smaller than the second new values
+        int temp = newValues[stageOfVisualisation-10];
+        //sawp them
+        newValues[stageOfVisualisation-10] = newValues[stageOfVisualisation-11];
+        newValues[stageOfVisualisation-11] = temp;
+      }
     }
-    else{
-      firstLower = true;
-      newValues[stageOfVisualisation-11] = usedValues[stageOfVisualisation-11];
-      newValues[stageOfVisualisation-10] = usedValues[stageOfVisualisation-10];
-    } 
-    if(newValues[stageOfVisualisation-10]<newValues[stageOfVisualisation-11]){
-      int temp = newValues[stageOfVisualisation-10];
-      newValues[stageOfVisualisation-10] = newValues[stageOfVisualisation-11];
-      newValues[stageOfVisualisation-11] = temp;
-    }
-    System.out.println(newValues[stageOfVisualisation-11] + "    " + newValues[stageOfVisualisation-10]);
-  }
-  if(stageOfVisualisation == 17) newValues[6] = usedValues[6];
-
+    if(stageOfVisualisation == 17) newValues[6] = usedValues[6]; //this is just for the final value that ins't compared cos it isn't yet in a pair
     if(stageOfVisualisation >12 ){
       fill(255);
       stroke(0);
@@ -732,7 +768,7 @@ void mousePressed() {
       fill(0);
       text(newValues[5], 842.6416+boxwidth+10+boxwidth/2, movementEndHeight[10]+boxwidth/2);
     }
-    
+      
     if(stageOfVisualisation >18){
       fill(255);
       stroke(0);
